@@ -234,7 +234,8 @@ word-wrap: break-word;">
                           ]
                       }
                       );
-}
+} 
+//test
 $(document).on('click', '.editable-special', function(evt) {
   evt.preventDefault();
   $.get('<?=base_url() ?>ajax/get_special/' + $(this).data('id'), function(data) {
