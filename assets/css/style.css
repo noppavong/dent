@@ -1,0 +1,308 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    color: #444444;
+    font-size: 13px;
+    background: #f2f2f2;
+    font-family: "Century Gothic", Helvetica, sans-serif;
+}
+
+#content {
+    margin: 15px auto;
+    text-align: center;
+    position: relative;
+    height: 100%;
+}
+
+#wrapper {
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+#steps {
+    /*height:320px;*/
+    overflow: hidden;
+}
+
+.step {
+    float: left;
+    /*height:320px;*/
+}
+
+#navigation {
+    margin: 0 auto;
+    display: block;
+    height: 50px;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: inherit!important;
+}
+
+
+/*#navigation{
+    height:45px;
+    -moz-border-radius:0px 0px 10px 10px;
+    -webkit-border-bottom-left-radius:10px;
+    -webkit-border-bottom-right-radius:10px;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+}*/
+
+#navigation ul {
+    list-style: none;
+}
+
+#navigation ul li {
+    float: left;
+    border-right: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    position: relative;
+}
+
+#navigation ul li a {
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ccc;
+    display: block;
+    height: 45px;
+    background-color: #444;
+    color: #777;
+    outline: none;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 45px;
+    padding: 0px 22px;
+    border-right: 1px solid #fff;
+    border-left: 1px solid #fff;
+    background: #f0f0f0;
+    background: -webkit-gradient( linear, left bottom, left top, color-stop(0.09, rgb(240, 240, 240)), color-stop(0.55, rgb(227, 227, 227)), color-stop(0.78, rgb(240, 240, 240)));
+    background: -moz-linear-gradient( center bottom, rgb(240, 240, 240) 9%, rgb(227, 227, 227) 55%, rgb(240, 240, 240) 78%)
+}
+
+#navigation .submit {
+    background: none;
+    background-color: #3c8dbc!important;
+    color: white;
+    border-color: #367fa9;
+}
+
+#navigation .submit:hover {
+    background-color: #3c8dbc!important;
+    color: white!important;
+    text-shadow: none;
+}
+
+#navigation ul li a:hover,
+#navigation ul li.selected a {
+    background: #d8d8d8;
+    color: #666;
+    text-shadow: 1px 1px 1px #fff;
+}
+
+span.checked {
+    background: transparent url(../images/checked.png) no-repeat top left;
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+}
+
+span.error {
+    background: transparent url(../images/error.png) no-repeat top left;
+    position: absolute;
+    top: 0px;
+    left: 1px;
+    width: 20px;
+    height: 20px;
+}
+
+#steps form fieldset {
+    border: none;
+    padding-bottom: 20px;
+}
+
+#steps form legend {
+    text-align: left;
+    background-color: #f0f0f0;
+    color: #666;
+    font-size: 24px;
+    text-shadow: 1px 1px 1px #fff;
+    font-weight: bold;
+    float: left;
+    width: 590px;
+    padding: 5px 0px 5px 10px;
+    margin: 10px 0px;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #d9d9d9;
+}
+
+#steps form p {
+    float: left;
+    clear: both;
+    margin: 5px 0px;
+    background-color: #f4f4f4;
+    border: 1px solid #fff;
+    width: 400px;
+    padding: 10px;
+    margin-left: 100px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0px 0px 3px #aaa;
+    -webkit-box-shadow: 0px 0px 3px #aaa;
+    box-shadow: 0px 0px 3px #aaa;
+}
+
+
+/*#steps form p label{
+    width:160px;
+    float:left;
+    text-align:right;
+    margin-right:15px;
+    line-height:26px;
+    color:#666;
+    text-shadow:1px 1px 1px #fff;
+    font-weight:bold;
+}
+*/
+
+
+/*#steps form input:not([type=radio]),
+#steps form textarea,
+#steps form select{
+    background: #ffffff;
+    border: 1px solid #ddd;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    width: 200px;
+    float:left;
+}*/
+
+.sp_vSpiFuU7MD8 {
+    background-image: url(/rsrc.php/v3/yt/r/merzeF4vRSs.png);
+    background-size: auto;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 12px;
+    width: 12px;
+}
+
+._3qpg,
+._23fw ._156p,
+._5ycb:hover._3ivw ._156p,
+._3qph {
+    opacity: 0;
+    transition: opacity .13s ease-out;
+}
+
+._156p {
+    -webkit-font-smoothing: antialiased;
+    font-weight: 700;
+    padding: 10px 12px 10px 35px;
+}
+
+.sp_vSpiFuU7MD8.sx_b27ecf {
+    width: 26px;
+    height: 21px;
+    background-position: 0 0;
+}
+
+._156n {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+}
+
+.fbTimelineProfilePicSelector {
+    bottom: 30px;
+    left: 15px;
+    text-align: center;
+    top: auto;
+    width: 170px;
+}
+
+.profilePic {
+    background-color: #fff;
+    border: 3px solid #fff;
+    border-radius: 2px;
+}
+
+.profilePicThumb {
+    box-shadow: none;
+    left: 15px;
+    margin-top: 0;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .07);
+    display: block;
+    left: 23px;
+    padding: 1px;
+    width: 168px;
+}
+
+#steps form input:focus {
+    -moz-box-shadow: 0px 0px 3px #aaa;
+    -webkit-box-shadow: 0px 0px 3px #aaa;
+    box-shadow: 0px 0px 3px #aaa;
+    background-color: #FFFEEF;
+}
+
+#steps form p.submit {
+    background: none;
+    border: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#steps form button {
+    border: none;
+    outline: none;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    color: #ffffff;
+    display: block;
+    cursor: pointer;
+    margin: 0px auto;
+    clear: both;
+    padding: 7px 25px;
+    text-shadow: 0 1px 1px #777;
+    font-weight: bold;
+    font-family: "Century Gothic", Helvetica, sans-serif;
+    font-size: 22px;
+    -moz-box-shadow: 0px 0px 3px #aaa;
+    -webkit-box-shadow: 0px 0px 3px #aaa;
+    box-shadow: 0px 0px 3px #aaa;
+    background: #4797ED;
+}
+
+#steps form button:hover {
+    background: #d8d8d8;
+    color: #666;
+    text-shadow: 1px 1px 1px #fff;
+}
+@media (min-width: 576px)
+.fieldset {
+    padding: 1.5rem;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
+    border-width: .2rem;
+}
+.fieldset{
+    position: relative;
+    padding: 1rem;
+    margin: 1rem -1rem;
+    border: solid #f7f7f9;
+    border-width: .2rem 0 0;
+}

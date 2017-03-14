@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+    RewriteCond $1 !^(index\.php|images|res|script|css|img|assets|upload|robots\.txt) [NC]
+    RewriteRule ^(.*)$ /dent/index.php/$1 [L]
+</IfModule>
+
+
+<IfModule mod_headers.c>
+  Header set Cache-Control "public"
+  Header set Connection keep-alive
+</IfModule>
