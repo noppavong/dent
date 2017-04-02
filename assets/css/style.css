@@ -299,6 +299,68 @@ span.error {
     margin-left: 0;
     border-width: .2rem;
 }
+.custom-circle{
+    background:url('../images/circle.png');
+}
+
+.custom-cross{
+    background:url('../images/cross.png');
+}
+.custom-zero{
+    background:url('../images/checked.png');
+}
+.custom-one{
+    background:url('../images/1.png');
+}
+.custom-two{
+    background:url('../images/2.png');
+}
+.custom-three{
+    background:url('../images/3.png');
+}
+.custom-four{
+    background:url('../images/4.png');
+}
+.custom-five{
+    background:url('../images/5.png');
+}
+.custom-six{
+    background:url('../images/6.png');
+}
+.custom-seven{
+    background:url('../images/7.png');
+}
+.custom-eight{
+    background:url('../images/8.png');
+}
+.custom-nine{
+    background:url('../images/9.png');
+}
+.custombtn{
+    width:60px;
+    height:60px;
+    margin:5px;
+    display: block;
+    background-size: cover;
+    float:left;
+}
+
+.customlink{
+   width: 50px;
+    min-height: 30px;
+     margin-top: 10px;
+    display: inline-block;
+    font-size:2em!important;
+}
+.custombtn span {
+    height: 1em;
+    font-size: 1em!important;
+    margin-top:1em;
+    display: block;
+    /* bottom: -2em; */
+    /* position: absolute; */
+}
+
 .fieldset{
     position: relative;
     padding: 1rem;

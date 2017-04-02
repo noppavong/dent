@@ -40,21 +40,38 @@ class Treatment_model extends CI_Model {
 	public function insert_entry()
 	{
 		$this->db->trans_start();
-		$parent_id =  $this->input->post('parent_id'); 
-		if(!empty($parent_id)){
-			$this->parent_id = $this->input->post('parent_id'); 
-		}
-		$this->name = $this->input->post('name');
-		$this->code = $this->input->post('code');
-		$this->status='A';
-		$this->price = $this->input->post('price');
-		$this->unit = $this->input->post('unit');
+		$this->promotion_id = $this->input->post('promotion_id');
+		$this->refer  = $this->input->post('refer');
 		$this->create_user = $this->ion_auth->user()->row()->id;
-		$this->db->insert('treatment', $this);
-		$treatment_id = $this->db->insert_id();
+		$this->client_id = $this->input->post('client_id');
+		$this->doctor_id = $this->input->post('doctor_id');
+		$treatment_date = $this->input->post('treatment_date');
+		$this->treatment_date = date('Y-m-d',strtotime($treatment_date));
+		$this->db->insert('treatment_plan', $this);
+		$plan_id = $this->db->insert_id();
 
-		$this->db->trans_complete();                
-		return array('id'=>$treatment_id,'status'=> $this->db->trans_status());
+		$treatment_ids = $this->input->post('treatment_id[]');
+		$quantitys = $this->input->post('quantity[]');
+		$prices = $this->input->post('price[]');
+		$other_treatments = $this->input->post('other_treatment[]');
+		$doctor_id = $this->input->post('doctor_id');
+
+
+		if(!empty($treatment_ids)){
+			$i = 0;
+			for($i = 0 ; $i< sizeof($treatment_ids); $i++) {
+				$data = array('treatment_id'=>$treatment_ids[$i],
+									'quantity'=>$quantitys[$i],
+									'price'=>$prices[$i],
+									'other_treatment'=>$other_treatments[$i],
+									'create_user'=>$this->ion_auth->user()->row()->id,
+									'plan_id'=>$plan_id
+ 									);
+
+				$this->db->insert('treatment_plan_detail',$data);
+			}
+		}
+		$this->db->trans_complete();    
 
 	}
 

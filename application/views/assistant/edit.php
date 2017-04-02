@@ -55,7 +55,7 @@
               <label  class="control-label col-sm-2">  งานที่ถนัด</label>
               <div class="col-sm-7">
 
-                <?= form_multiselect('skill[]', $skills, (isset($assistant_skills)?$assistant_skills:""),array('class'=>'form-control select2')); ?>
+                <?= form_multiselect('skill[]', $skills, (isset($mt_assistant_skills)?$mt_assistant_skills:""),array('class'=>'form-control select2')); ?>
              
              </div>
           </div>

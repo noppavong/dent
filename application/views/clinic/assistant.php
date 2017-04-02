@@ -121,10 +121,10 @@
                 $('input[name="share_percentage"]').val(data.assistant.share_percentage);
                 $('input[name="assistant_id"]').val(data.assistant.assistant_id);
                 var selectedValues = [];
-                for(var i = 0; i< data.assistant_skill.length ; i++)
+                for(var i = 0; i< data.mt_assistant_skill.length ; i++)
                 {
 
-                    selectedValues.push(parseInt(data.assistant_skill[i].skill_id));
+                    selectedValues.push(parseInt(data.mt_assistant_skill[i].skill_id));
                 }
                 
                 var selectedHoliday = [];

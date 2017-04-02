@@ -91,6 +91,14 @@
    ยกเลิก
 </a>
         </div>
+          <div class="box">
+    <div class="box-header">
+                <h3 class="box-title">แผนการรักษา</h3>
+    </div>
+    <div class="box-body">
+          <?php $this->load->view('client/client_edit_cure_plan'); ?>
+    </div>
+</div>
         <!-- /.box-body -->
         <div class="box">
     <div class="box-header">
@@ -100,12 +108,23 @@
           <?php $this->load->view('client/client_edit_plan'); ?>
     </div>
 </div>
+   
+
+
 </div>
 <!-- /.box -->
+
 </form>
 
 
-
+<div class="box">
+    <div class="box-header">
+                <h3 class="box-title">บันทึกการรักษาต่อเนื่อง</h3>
+    </div>
+    <div class="box-body">
+          <?php $this->load->view('client/client_edit_special'); ?>
+    </div>
+</div>
 <?php if(isset($client_id)) { ?>
 <div class="modal fade modal-warning" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -17,7 +17,7 @@
   folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/css/skins/_all-skins.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/iCheck/flat/blue.css">
+  <link rel="stylesheet" href="<?= base_url(); ?>assets/dist/icheck-1/skins/all.css">
   
   <!-- Date Picker -->
   <link rel="stylesheet" href="<?= base_url(); ?>assets/plugins/datepicker/datepicker3.css">
@@ -489,6 +489,7 @@ jQuery.fn.preventDoubleSubmission = function() {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.13.4/jquery.mask.min.js"></script>
 
 <script src="<?= base_url(); ?>assets/dist/js/app.min.js"></script>
+<script src="<?= base_url(); ?>assets/dist/icheck-1/icheck.js"></script>
 
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 

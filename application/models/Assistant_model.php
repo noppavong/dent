@@ -44,7 +44,7 @@ class Assistant_model extends CI_Model {
         {
             $this->db->where('assistant_id', $assistant_id);
             //here we select every clolumn of the table
-            $q = $this->db->get('assistant_skill_rel');
+            $q = $this->db->get('mt_assistant_skill_rel');
             return $q->result_array();
         }
         public function get_holiday($assistant_id)
@@ -79,7 +79,7 @@ class Assistant_model extends CI_Model {
                                'skill_id' => intval($value) ,
                                'create_user'=> $this->ion_auth->user()->row()->id
                             );
-                         $this->db->insert('assistant_skill_rel', $data);
+                         $this->db->insert('mt_assistant_skill_rel', $data);
                     }
                 }
                 if(isset($holidays) && !empty($holidays)){
@@ -99,7 +99,7 @@ class Assistant_model extends CI_Model {
         public function delete_entry($assistant_id = "")
         {
             $this->db->trans_start();
-             $this->db->delete('assistant_skill_rel', array('assistant_id' => $assistant_id)); 
+             $this->db->delete('mt_assistant_skill_rel', array('assistant_id' => $assistant_id)); 
              $this->db->delete('assistant_holiday', array('assistant_id' => $assistant_id)); 
             $sql = "UPDATE assistant SET status = ?, update_date= now() ,update_user = ? WHERE assistant_id = ? ";
             $this->db->query($sql, array( "D", $this->ion_auth->user()->row()->id,$assistant_id));
@@ -121,7 +121,7 @@ class Assistant_model extends CI_Model {
             $updateObj->update_user = $this->ion_auth->user()->row()->id;
             $updateObj->update_date = date('Y-m-d H:i:s');
         
-            $this->db->delete('assistant_skill_rel', array('assistant_id' => $this->input->post('assistant_id') )); 
+            $this->db->delete('mt_assistant_skill_rel', array('assistant_id' => $this->input->post('assistant_id') )); 
             $skills = $this->input->post('skill');
             if(isset($skills) && !empty($skills)){
                 foreach ($skills as $value) {
@@ -130,7 +130,7 @@ class Assistant_model extends CI_Model {
                            'skill_id' => intval($value) ,
                            'create_user'=> $this->ion_auth->user()->row()->id
                         );
-                     $this->db->insert('assistant_skill_rel', $data);
+                     $this->db->insert('mt_assistant_skill_rel', $data);
                 }
             }
             $this->db->delete('assistant_holiday', array('assistant_id' => $this->input->post('assistant_id') )); 

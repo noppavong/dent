@@ -43,7 +43,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title">รายการชื่อการรักษาต่อเนื่อง</h4>
+                  <h4 class="modal-title">promotion</h4>
               </div>
 
               <form id="promotionform" action="<?php echo base_url() ?>promotion/savepromotion" class="form-horizontal">

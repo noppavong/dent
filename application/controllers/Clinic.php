@@ -80,7 +80,7 @@ class Clinic extends CI_Controller {
 		$map_skill_a = array();
 		$query_skill_doctor = $this->db->query('select * from doctor_skill_rel  dr inner join doctor_skill  ds on ds.skill_id= dr.skill_id where dr.create_user = '.$this->ion_auth->user()->row()->id.' and ds.status="A"');
 
-		$query_skill_assistant = $this->db->query('select * from assistant_skill_rel asr inner join assistant_skill ass on asr.skill_id = ass.skill_id where asr.create_user = '.$this->ion_auth->user()->row()->id.' and ass.status="A"');
+		$query_skill_assistant = $this->db->query('select * from mt_assistant_skill_rel asr inner join mt_assistant_skill ass on asr.skill_id = ass.skill_id where asr.create_user = '.$this->ion_auth->user()->row()->id.' and ass.status="A"');
 		foreach ($query_skill_doctor->result_array() as $row) {
 			$map_skill_d[$row['doctor_id']] = $row['skill_id'];
 		}
@@ -410,7 +410,7 @@ class Clinic extends CI_Controller {
 				$struct[] = array($row['id'],$row['dname'].' '.$row['dsurname'],$row['dphone'],($row['type'] == 1)?'ทันตแพทย์':'ผู้ช่วย'
 					,$row['start_date'],implode(',',$str_skill));
 			}else{
-				$query = $this->db->query('select * from assistant_skill ass inner join assistant_skill_rel asr on ass.skill_id = asr.skill_id where asr.assistant_id = '.$row['assistant_id']); 
+				$query = $this->db->query('select * from mt_assistant_skill ass inner join mt_assistant_skill_rel asr on ass.skill_id = asr.skill_id where asr.assistant_id = '.$row['assistant_id']); 
 				$str_skill = array();
 				foreach ($query->result_array() as $row2) {
 					$str_skill []= $row2['name'];
@@ -441,7 +441,7 @@ class Clinic extends CI_Controller {
 				$struct[] = array($row['id'],$row['dname'].' '.$row['dsurname'],$row['dphone'],($row['type'] == 1)?'ทันตแพทย์':'ผู้ช่วย'
 					,$row['absent_date'],implode(',',$str_skill));
 			}else{
-				$query = $this->db->query('select * from assistant_skill ass inner join assistant_skill_rel asr on ass.skill_id = asr.skill_id where asr.assistant_id = '.$row['assistant_id']); 
+				$query = $this->db->query('select * from mt_assistant_skill ass inner join mt_assistant_skill_rel asr on ass.skill_id = asr.skill_id where asr.assistant_id = '.$row['assistant_id']); 
 				$str_skill = array();
 				foreach ($query->result_array() as $row2) {
 					$str_skill []= $row2['name'];
@@ -459,14 +459,14 @@ class Clinic extends CI_Controller {
 	{
 		$content = array();
 		$this->load->library('ion_auth');
-		$query_s= $this->db->query("SELECT * FROM assistant_skill where status='A' and create_user = '".$this->ion_auth->user()->row()->id."';");
+		$query_s= $this->db->query("SELECT * FROM mt_assistant_skill where status='A' and create_user = '".$this->ion_auth->user()->row()->id."';");
 		$query_b= $this->db->query("SELECT * FROM bank;");
 		$query_h= $this->db->query("SELECT * FROM holiday");
 
 		$content['banks'] = $query_b;
 		$content['skills'] = $query_s;
 		$content['holidays'] = $query_h;
-		$content['assistant_skills'] = array();
+		$content['mt_assistant_skills'] = array();
 		$skills = array();
 		$skilllist = array();
 
@@ -508,7 +508,7 @@ class Clinic extends CI_Controller {
 		$query_doctors = $this->db->query('select * from  assistant where status = "A" and create_user =  "'.$this->ion_auth->user()->row()->id.'"; ');
 		$struct = array();
 		foreach ($query_doctors->result_array() as $row) {
-			$query = $this->db->query('select * from assistant_skill ass inner join assistant_skill_rel asr on ass.skill_id = asr.skill_id where asr.assistant_id = '.$row['assistant_id']); 
+			$query = $this->db->query('select * from mt_assistant_skill ass inner join mt_assistant_skill_rel asr on ass.skill_id = asr.skill_id where asr.assistant_id = '.$row['assistant_id']); 
 				$str_skill = array();
 				foreach ($query->result_array() as $row2) {
 					$str_skill []= $row2['name'];
@@ -538,7 +538,7 @@ class Clinic extends CI_Controller {
 		$result = array();
 		$assistant = $this->assistant_model->get($assistant_id);
 		$result['assistant'] =$assistant;
-		$result['assistant_skill'] = $this->assistant_model->get_skill($assistant_id);
+		$result['mt_assistant_skill'] = $this->assistant_model->get_skill($assistant_id);
 		$result['assistant_holiday'] = $this->assistant_model->get_holiday($assistant_id);
 		header('Content-Type: application/json');
 		echo json_encode($result);

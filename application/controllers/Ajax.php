@@ -89,6 +89,29 @@ class Ajax extends CI_Controller {
 			echo json_encode(array('status'=>'1'));
 	        //}
 	}
+	public function specialadd()
+	{
+
+			//$this->plan_validation();
+			// if ($this->form_validation->run() == FALSE){
+	                
+			// 	header('Content-Type: application/json');
+			// 	echo json_encode(array('status'=>'0','message'=>validation_errors()));
+	  //       }else{
+	        	
+	        $special_id = $this->input->post('special_treatment_id');
+	        if(!empty($special_id)){
+
+					$this->load->model("specialTreatment_model");
+					$this->specialTreatment_model->update_entry();
+	        }else{
+					$this->load->model("specialTreatment_model");
+					$this->specialTreatment_model->insert_entry();
+			}
+			header('Content-Type: application/json');
+			echo json_encode(array('status'=>'1'));
+	        //}
+	}
 	public function planedit()
 	{
 
@@ -252,6 +275,33 @@ class Ajax extends CI_Controller {
 		echo json_encode($content);
 
 	}
+	public function specialbyclient($client_id)
+	{
+		$sql = array("SELECT *
+			, CONCAT(d.name,' ',d.surname) as doctor_name,p.name as promotion_name,c.name as treatment_name
+			from special_treatment st
+		 left join doctor d on st.doctor_id =  d.doctor_id
+		 left join mt_promotion p on p.promotion_id = st.promotion_id
+		 left join mt_continual_treatment c on c.treatment_id = st.continual_treatment_id
+		 where client_id = '".$client_id."' order by treatment_date");
+		$query_plans = $this->db->query(implode("  ", $sql));
+		$struct = array();
+		foreach ($query_plans->result_array() as $row) {
+			$query_time = $this->db->query('select max(time) as time from special_treatment_trans where special_treatment_id = "'.$row['special_treatment_id'].'"');
+			$time = 0;
+			if($query_time->row()){
+				$time = $query_time->row()->time;
+			}
+			$struct[] = array($row['special_treatment_id'],date('d-m-Y',strtotime($row['treatment_date'])),$row['treatment_name'],$row['promotion_name'],$time,$row['doctor_name']);
+			
+		}
+
+		$content = array();
+		$content['data'] = $struct;
+		header('Content-Type: application/json');
+		echo json_encode($content);
+
+	}
 	public function get_treatmentlist($treatment_id)
 	{
 		$query_child = $this->db->query("SELECT * FROM treatment t  where parent_id = '".$treatment_id."' and t.create_user = ".$this->ion_auth->user()->row()->id);
@@ -332,6 +382,18 @@ class Ajax extends CI_Controller {
 		}
 
 	}
+	public function delete_special($special_treatment_id){
+		if(!empty($special_treatment_id))
+		{
+				$this->load->model('specialTreatment_model');
+				$this->specialTreatment_model->delete_entry($special_treatment_id);
+				header('Content-Type: application/json');
+				echo json_encode(array('status'=>'1'));
+		}else{
+			echo json_encode(array('status'=>'0'));
+		}
+
+	}
 	public function get_lab($id)
 	{
 		$this->load->model('labts_model');
@@ -366,6 +428,47 @@ class Ajax extends CI_Controller {
 		header('Content-Type: application:json');
 		echo json_encode($result);
 	}
+	public function get_method()
+	{
+		$tooth_side = $this->input->post('tooth_side');
+		$tooth_number = $this->input->post('tooth_number');
+		$client_id = $this->input->post('client_id');
+
+		$query_tooth_plan_detail = $this->db->query('select * from tooth_plan  p inner join tooth_plan_detail pdetail on p.tooth_plan_id = pdetail.tooth_plan_id where p.client_id = "'.$client_id.'"');
+		$method = array();
+		$is_blank = '';
+		$is_withdraw = '';
+		$is_finish = '';
+		foreach ($query_tooth_plan_detail->result_array() as $row) {
+			if($row['tooth_number'] == $tooth_number && $row['tooth_side'] == $tooth_side){
+				$method[] = $row['method'];
+				$is_blank = $row['is_blank'];
+				$is_withdraw = $row['is_withdraw'];
+				$is_finish = $row['is_finish'];
+			}
+		}
+
+		header('Content-Type: application:json');
+		echo json_encode(array('method'=>$method,'is_blank'=>$is_blank,'is_withdraw'=>$is_withdraw,'is_finish'=>$is_finish));
+	}
+	public function get_special($id)
+	{
+		$this->load->model('specialTreatment_model');
+		$result = array();
+		if(!empty($id))
+		{
+			$result = $this->specialTreatment_model->get($id);
+			$query_trans = $this->db->query('select * from special_treatment_trans tt inner join special_treatment t on t.special_treatment_id = tt.special_treatment_id where t.special_treatment_id ="'.$id.'"');
+			foreach ($query_trans->result_array() as $row) {
+				$result['special_trans'][] = $row;
+
+			}
+			$result['treatment_date'] = date('d-m-Y',strtotime($result['treatment_date']));
+		}
+
+		header('Content-Type: application:json');
+		echo json_encode($result);
+	}
 	public function delete_masterlab($id)
 	{
 		$this->load->model('lab_model');
@@ -393,6 +496,22 @@ class Ajax extends CI_Controller {
 			echo json_encode($result);
 		}
 
+	}
+	public function toothplansave()
+	{
+		$this->load->model('toothplan_model');
+		$tooth_plan_id = $this->input->post("tooth_plan_id");
+		if(empty($tooth_plan_id))
+		{
+			$result = $this->toothplan_model->insert_entry();
+			header('Content-Type: application:json');
+			echo json_encode($result);
+		}else{
+
+			$result = $this->toothplan_model->update_entry();
+			header('Content-Type: application:json');
+			echo json_encode($result);
+		}
 	}
 	public function get_masterlab($id)
 	{

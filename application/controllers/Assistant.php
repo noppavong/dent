@@ -51,14 +51,14 @@ class Assistant extends CI_Controller {
 	public function view($assistant_id='')
 	{
 		
-		$query_s= $this->db->query("SELECT * FROM assistant_skill;");
+		$query_s= $this->db->query("SELECT * FROM mt_assistant_skill;");
 		$query_b= $this->db->query("SELECT * FROM bank;");
 		$query_h= $this->db->query("SELECT * FROM holiday");
 
 		
 		$content['banks'] = $query_b;
 		$content['skills'] = $query_s;
-		$content['assistant_skills'] = array();
+		$content['mt_assistant_skills'] = array();
 		$skills = array();
 		$skilllist = array();
 
@@ -76,20 +76,20 @@ class Assistant extends CI_Controller {
 			if(isset($assistant)){
 				$content= array_merge($assistant,$client);
 			}
-			$query_askill = $this->db->query("SELECT * FROM assistant_skill_rel where assistant_id = ".$assistant_id);
+			$query_askill = $this->db->query("SELECT * FROM mt_assistant_skill_rel where assistant_id = ".$assistant_id);
 			foreach ($query_askill->result_array() as $row) {
 				$doctors[] = $row['doctor_id'];
 			}
 
 			
 			$content['cli_doctors'] = $doctors;
-			$query_askill = $this->db->query("SELECT * FROM assistant_skill_rel where assistant_id = ".$assistant_id);
+			$query_askill = $this->db->query("SELECT * FROM mt_assistant_skill_rel where assistant_id = ".$assistant_id);
 			foreach ($query_askill->result_array() as $row) {
 				$skills[] = $row['skill_id'];
 			}
 
 			
-			$content['assistant_skills'] = $skills;
+			$content['mt_assistant_skills'] = $skills;
 
 			$this->template->load('template', 'assistant/view', $content);
 		}else{
@@ -104,7 +104,7 @@ class Assistant extends CI_Controller {
 	public function edit($assistant_id='' )
 	{
 
-		$query_s= $this->db->query("SELECT * FROM assistant_skill;");
+		$query_s= $this->db->query("SELECT * FROM mt_assistant_skill;");
 		$query_b= $this->db->query("SELECT * FROM bank;");
 		$query_h= $this->db->query("SELECT * FROM holiday");
 
@@ -112,7 +112,7 @@ class Assistant extends CI_Controller {
 		$content['banks'] = $query_b;
 		$content['skills'] = $query_s;
 		$content['holidays'] = $query_h;
-		$content['assistant_skills'] = array();
+		$content['mt_assistant_skills'] = array();
 		$skills = array();
 		$holidays = array();
 		$skilllist = array();
@@ -137,7 +137,7 @@ class Assistant extends CI_Controller {
 			if(isset($assistant)){
 				$content= array_merge($content,$assistant);
 			}
-			$query_askill = $this->db->query("SELECT * FROM assistant_skill_rel where assistant_id = ".$assistant_id);
+			$query_askill = $this->db->query("SELECT * FROM mt_assistant_skill_rel where assistant_id = ".$assistant_id);
 			foreach ($query_askill->result_array() as $row) {
 				$skills[] = $row['skill_id'];
 			}
@@ -146,17 +146,17 @@ class Assistant extends CI_Controller {
 				$holidays[] = $row['holiday_id'];
 			}
 
-			$content['assistant_skills'] = $skills;
+			$content['mt_assistant_skills'] = $skills;
 			$content['assistant_holidays']= $holidays;
 		}else{
 			$assistant = $this->assistant_model->props();
 			
 			$content= array_merge($content,$assistant);
 		}
-			$assistant_skills =$this->input->post('skill');
-			if(isset($assistant_skills) and $this->form_validation->run() == FALSE)
+			$mt_assistant_skills =$this->input->post('skill');
+			if(isset($mt_assistant_skills) and $this->form_validation->run() == FALSE)
 			{
-				$content['assistant_skills'] = $assistant_skills;
+				$content['mt_assistant_skills'] = $mt_assistant_skills;
 			}
 			$assistant_holidays=$this->input->post('holidays');
 			if(isset($assistant_holidays) and $this->form_validation->run() == FALSE)

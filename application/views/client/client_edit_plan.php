@@ -1,5 +1,5 @@
     
-    <button type="button" data-toggle="modal" class="btn btn-primary" data-target="#addPlanModal"> เพิ่มแผนการักษา  </button>
+    <button type="button" data-toggle="modal" class="btn btn-primary" data-target="#addPlanModal"> เพิ่มบันทึกการักษา  </button>
     <table id="treatmentTable" class="table display" cellspacing="0" width="100%" style="table-layout: fixed;
     word-wrap: break-word;">
         <thead>

@@ -156,14 +156,19 @@ class Client extends CI_Controller {
 		$query_c = $this->db->query("SELECT * FROM company_contact where status = 'A'");
 		$query_parent_treatment = $this->db->query('SELECT * FROM treatment where create_user = "'.$this->ion_auth->user()->row()->id.'" and parent_id is null and status="A"');
 		$query_child_treatment = $this->db->query('SELECT * FROM treatment where create_user = "'.$this->ion_auth->user()->row()->id.'" and parent_id is not null and status="A" ');
-		$query_special_treatment = $this->db->query('SELECT * FROM special_treatment where create_user = "'.$this->ion_auth->user()->row()->id.'" and status="A"');
+		$query_special_treatment = $this->db->query('SELECT * FROM mt_continual_treatment where create_user = "'.$this->ion_auth->user()->row()->id.'" and status="A"');
 		$query_promotion_special_treatment = $this->db->query('SELECT * FROM mt_treatment_promo_rel  rel inner join mt_promotion mt 
-			on mt.promotion_id = rel.promo_id  where rel.create_user  = "'.$this->ion_auth->user()->row()->id.'" and  rel.status ="A" and mt.status= "A" ');
-
+			on mt.promotion_id = rel.promo_id  where rel.create_user  = "'.$this->ion_auth->user()->row()->id.'"  and mt.status= "A" ');
+		$query_promotion_tier = $this->db->query('SELECT * from mt_promotion p inner join mt_promotion_tier t on p.promotion_id = t.promo_id
+			where p.create_user  = "'.$this->ion_auth->user()->row()->id.'"  and p.status= "A" ');
 
 		
 		$query_s = $this->db->query("SELECT * FROM service where status ='A' ");
 		$query_l = $this->db->query("SELECT * FROM lab  where status ='A' ");
+
+		$query_tooth_plan = $this->db->query('select * from tooth_plan where client_id = "'.$client_id.'"');
+
+		$query_tooth_plan_detail = $this->db->query('select * from tooth_plan  p inner join tooth_plan_detail pdetail on p.tooth_plan_id = pdetail.tooth_plan_id where p.client_id = "'.$client_id.'"');
 
 		$content['services'] = $query_s;
 		$content['parent_treatment'] =$query_parent_treatment;
@@ -171,22 +176,53 @@ class Client extends CI_Controller {
 		$parent_child_treatment = array();
 		$inner_treatment = array();
 
+
 		foreach ($query_child_treatment->result_array() as $row) {
 			$parent_child_treatment[$row['parent_id']][] = $row;
 			$inner_treatment[$row['treatment_id']] = $row;
 		}
+		$special_promo_tier = array();
 		$special_promo_rel = array();
 		$special_promo = array();
-		foreach ($query_promotion_special_treatment as $row) {
+		$promotion_rel = array();
+		foreach ($query_promotion_special_treatment->result_array() as $row) {
 			$special_promo_rel[$row['treatment_id']][]= $row;
 			$special_promo[$row['treatment_id']] = $row;
 		}
+		foreach ($query_promotion_tier->result_array() as $row) {
+			$special_promo_tier[$row['promotion_id']][] = $row;
+		}
+		$tooth_plan_detail = array();
+		$tooth_plan =$query_tooth_plan->row();
+		if(isset($tooth_plan) && isset($query_tooth_plan->row()->plan_date)){
+			$content['plan_date'] = date('d-m-Y');
+		}
+		$content['plan_choice'] = $query_tooth_plan->row()->plan_choice;
+		$content['plan_doctor_id'] = $query_tooth_plan->row()->doctor_id;
+		$content['tooth_plan_id'] = $query_tooth_plan->row()->tooth_plan_id;
+		$is_blank = array();
+		$is_withdraws = array();
+		$is_finish = array();
+
+		foreach ($query_tooth_plan_detail->result_array() as $row) {
+			$tooth_plan_detail[$row['tooth_number']][$row['tooth_side']][] = $row['method'];
+			$is_blank[$row['tooth_number']][$row['tooth_side']] = $row['is_blank'];
+			$is_withdraw[$row['tooth_number']][$row['tooth_side']] = $row['is_withdraw'];
+			$is_finish[$row['tooth_number']][$row['tooth_side']] = $row['is_finish'];
+		}
+		$content['tooth_plan_detail'] =$tooth_plan_detail;
+		$content['is_blanks']=$is_blank;
+		$content['is_withdraws']=$is_withdraw;
+		$content['is_finishes']=$is_finish;
+		$content['tooth_plan_detail_json'] =json_encode($tooth_plan_detail);
 
 		$content['relation_treatment'] = json_encode($parent_child_treatment);
 		
 		$content['inner_treatment']= json_encode($inner_treatment);
 		$content['special_promo'] = json_encode($special_promo);
-		$content['special_promo_rel'] = json_kencode($special_promo_rel);
+		$content['special_promo_rel'] = json_encode($special_promo_rel);
+		$content['special_promo_tier'] = json_encode($special_promo_tier);
+
  
 		$content['labs'] = $query_l;
 		$content['amphurs'] = $query_a;
